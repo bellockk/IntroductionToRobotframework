@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180609 20:25:17.396" generator="Robot 3.0.4 (Python 2.7.15 on linux2)">
+<suite source="/local/bellockk/Development/IntroductionToRobotFramework/example/01-HelloRobot/src/Hello.robot" id="s1" name="Hello">
+<test id="s1-t1" name="Hello Robot">
+<kw name="No Operation" library="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" endtime="20180609 20:25:17.431" starttime="20180609 20:25:17.430"></status>
+</kw>
+<status status="PASS" endtime="20180609 20:25:17.431" critical="yes" starttime="20180609 20:25:17.430"></status>
+</test>
+<status status="PASS" endtime="20180609 20:25:17.431" starttime="20180609 20:25:17.398"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Hello" pass="1">Hello</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
