@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180610 18:40:03.137" generator="Robot 3.0.4 (Python 2.7.15 on linux2)">
+<suite source="/local/bellockk/Development/IntroductionToRobotFramework/example/02-SimpleSUT/src/SUT.robot" id="s1" name="SUT">
+<test id="s1-t1" name="Program Options Help">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>sys.executable</arg>
+<arg>modules=sys</arg>
+</arguments>
+<assign>
+<var>${python}</var>
+</assign>
+<msg timestamp="20180610 18:40:03.190" level="INFO">${python} = /local/bellockk/Development/IntroductionToRobotFramework/example/local/bin/python2</msg>
+<status status="PASS" endtime="20180610 18:40:03.190" starttime="20180610 18:40:03.190"></status>
+</kw>
+<kw name="Run Process" library="Process">
+<doc>Runs a process and waits for it to complete.</doc>
+<arguments>
+<arg>${python}</arg>
+<arg>/local/bellockk/Development/IntroductionToRobotFramework/example/02-SimpleSUT/src${/}..${/}..${/}sut.py</arg>
+<arg>-h</arg>
+<arg>stderr=STDOUT</arg>
+<arg>stdout=${TEMPDIR}/stdout.txt</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20180610 18:40:03.192" level="INFO">Starting process:
+/local/bellockk/Development/IntroductionToRobotFramework/example/local/bin/python2 /local/bellockk/Development/IntroductionToRobotFramework/example/02-SimpleSUT/src/../../sut.py -h</msg>
+<msg timestamp="20180610 18:40:03.195" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20180610 18:40:03.239" level="INFO">Process completed.</msg>
+<msg timestamp="20180610 18:40:03.239" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" endtime="20180610 18:40:03.239" starttime="20180610 18:40:03.191"></status>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<arguments>
+<arg>${result.rc}</arg>
+<arg>${result.stdout}</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.241" level="INFO">0</msg>
+<msg timestamp="20180610 18:40:03.241" level="INFO">usage: sut [-h] [-o OUTPUT_FILE] [-V]
+
+a system to test
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE, --output-file OUTPUT_FILE
+  -V, --version         show program's version number and exit</msg>
+<status status="PASS" endtime="20180610 18:40:03.241" starttime="20180610 18:40:03.240"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>0</arg>
+<arg>${result.rc}</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.242" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20180610 18:40:03.242" starttime="20180610 18:40:03.242"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result.stdout}</arg>
+<arg>usage</arg>
+</arguments>
+<status status="PASS" endtime="20180610 18:40:03.243" starttime="20180610 18:40:03.243"></status>
+</kw>
+<status status="PASS" endtime="20180610 18:40:03.244" critical="yes" starttime="20180610 18:40:03.189"></status>
+</test>
+<test id="s1-t2" name="Program Version">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>sys.executable</arg>
+<arg>modules=sys</arg>
+</arguments>
+<assign>
+<var>${python}</var>
+</assign>
+<msg timestamp="20180610 18:40:03.246" level="INFO">${python} = /local/bellockk/Development/IntroductionToRobotFramework/example/local/bin/python2</msg>
+<status status="PASS" endtime="20180610 18:40:03.246" starttime="20180610 18:40:03.245"></status>
+</kw>
+<kw name="Run Process" library="Process">
+<doc>Runs a process and waits for it to complete.</doc>
+<arguments>
+<arg>${python}</arg>
+<arg>/local/bellockk/Development/IntroductionToRobotFramework/example/02-SimpleSUT/src${/}..${/}..${/}sut.py</arg>
+<arg>-V</arg>
+<arg>stderr=STDOUT</arg>
+<arg>stdout=${TEMPDIR}/stdout.txt</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20180610 18:40:03.247" level="INFO">Starting process:
+/local/bellockk/Development/IntroductionToRobotFramework/example/local/bin/python2 /local/bellockk/Development/IntroductionToRobotFramework/example/02-SimpleSUT/src/../../sut.py -V</msg>
+<msg timestamp="20180610 18:40:03.258" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20180610 18:40:03.287" level="INFO">Process completed.</msg>
+<msg timestamp="20180610 18:40:03.288" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" endtime="20180610 18:40:03.288" starttime="20180610 18:40:03.246"></status>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<arguments>
+<arg>${result.rc}</arg>
+<arg>${result.stdout}</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.289" level="INFO">0</msg>
+<msg timestamp="20180610 18:40:03.289" level="INFO">sut v1.0.0</msg>
+<status status="PASS" endtime="20180610 18:40:03.290" starttime="20180610 18:40:03.288"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>0</arg>
+<arg>${result.rc}</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.290" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20180610 18:40:03.291" starttime="20180610 18:40:03.290"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${result.stdout}</arg>
+<arg>sut v1.0.0</arg>
+</arguments>
+<status status="PASS" endtime="20180610 18:40:03.291" starttime="20180610 18:40:03.291"></status>
+</kw>
+<status status="PASS" endtime="20180610 18:40:03.292" critical="yes" starttime="20180610 18:40:03.244"></status>
+</test>
+<test id="s1-t3" name="Run SUT">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>sys.executable</arg>
+<arg>modules=sys</arg>
+</arguments>
+<assign>
+<var>${python}</var>
+</assign>
+<msg timestamp="20180610 18:40:03.294" level="INFO">${python} = /local/bellockk/Development/IntroductionToRobotFramework/example/local/bin/python2</msg>
+<status status="PASS" endtime="20180610 18:40:03.294" starttime="20180610 18:40:03.293"></status>
+</kw>
+<kw name="Run Process" library="Process">
+<doc>Runs a process and waits for it to complete.</doc>
+<arguments>
+<arg>${python}</arg>
+<arg>/local/bellockk/Development/IntroductionToRobotFramework/example/02-SimpleSUT/src${/}..${/}..${/}sut.py</arg>
+<arg>-o ${TEMPDIR}${/}output.csv</arg>
+<arg>stderr=STDOUT</arg>
+<arg>stdout=${TEMPDIR}/stdout.txt</arg>
+</arguments>
+<assign>
+<var>${result}</var>
+</assign>
+<msg timestamp="20180610 18:40:03.295" level="INFO">Starting process:
+/local/bellockk/Development/IntroductionToRobotFramework/example/local/bin/python2 /local/bellockk/Development/IntroductionToRobotFramework/example/02-SimpleSUT/src/../../sut.py "-o /tmp/output.csv"</msg>
+<msg timestamp="20180610 18:40:03.304" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20180610 18:40:03.337" level="INFO">Process completed.</msg>
+<msg timestamp="20180610 18:40:03.337" level="INFO">${result} = &lt;result object with rc 0&gt;</msg>
+<status status="PASS" endtime="20180610 18:40:03.337" starttime="20180610 18:40:03.294"></status>
+</kw>
+<kw name="Log Many" library="BuiltIn">
+<doc>Logs the given messages as separate entries using the INFO level.</doc>
+<arguments>
+<arg>${result.rc}</arg>
+<arg>${result.stdout}</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.338" level="INFO">0</msg>
+<msg timestamp="20180610 18:40:03.339" level="INFO">System Under Test (SUT) v1.0.0
+  Output:  /tmp/output.csv
+SUT completed successfully</msg>
+<status status="PASS" endtime="20180610 18:40:03.339" starttime="20180610 18:40:03.338"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>0</arg>
+<arg>${result.rc}</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.340" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20180610 18:40:03.340" starttime="20180610 18:40:03.339"></status>
+</kw>
+<kw name="File Should Exist" library="OperatingSystem">
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<arguments>
+<arg>${TEMPDIR}${/}output.csv</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.341" html="yes" level="INFO">File '&lt;a href="file:///tmp/output.csv"&gt;/tmp/output.csv&lt;/a&gt;' exists.</msg>
+<status status="PASS" endtime="20180610 18:40:03.341" starttime="20180610 18:40:03.340"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>${TEMPDIR}${/}output.csv</arg>
+</arguments>
+<assign>
+<var>${file_contents}</var>
+</assign>
+<msg timestamp="20180610 18:40:03.342" html="yes" level="INFO">Getting file '&lt;a href="file:///tmp/output.csv"&gt;/tmp/output.csv&lt;/a&gt;'.</msg>
+<msg timestamp="20180610 18:40:03.342" level="INFO">${file_contents} = 0, 0.0
+1, 0.0998334166468
+2, 0.198669330795
+3, 0.295520206661
+4, 0.389418342309
+5, 0.479425538604
+6, 0.564642473395
+7, 0.644217687238
+8, 0.7173560909
+9, 0.783326909627
+10, 0.841470984808
+11, 0.8912073...</msg>
+<status status="PASS" endtime="20180610 18:40:03.343" starttime="20180610 18:40:03.342"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${file_contents}</arg>
+</arguments>
+<msg timestamp="20180610 18:40:03.343" level="INFO">0, 0.0
+1, 0.0998334166468
+2, 0.198669330795
+3, 0.295520206661
+4, 0.389418342309
+5, 0.479425538604
+6, 0.564642473395
+7, 0.644217687238
+8, 0.7173560909
+9, 0.783326909627
+10, 0.841470984808
+11, 0.891207360061
+12, 0.932039085967
+13, 0.963558185417
+14, 0.985449729988
+15, 0.997494986604
+16, 0.999573603042
+17, 0.991664810452
+18, 0.973847630878
+19, 0.946300087687
+20, 0.909297426826
+21, 0.863209366649
+22, 0.80849640382
+23, 0.745705212177
+24, 0.675463180551
+25, 0.598472144104
+26, 0.515501371821
+27, 0.427379880234
+28, 0.334988150156
+29, 0.239249329214
+30, 0.14112000806
+31, 0.0415806624333
+32, -0.0583741434276
+33, -0.157745694143
+34, -0.255541102027
+35, -0.35078322769
+36, -0.442520443295
+37, -0.529836140908
+38, -0.611857890943
+39, -0.687766159184</msg>
+<status status="PASS" endtime="20180610 18:40:03.343" starttime="20180610 18:40:03.343"></status>
+</kw>
+<status status="PASS" endtime="20180610 18:40:03.344" critical="yes" starttime="20180610 18:40:03.292"></status>
+</test>
+<status status="PASS" endtime="20180610 18:40:03.344" starttime="20180610 18:40:03.139"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="3">Critical Tests</stat>
+<stat fail="0" pass="3">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="SUT" pass="3">SUT</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
