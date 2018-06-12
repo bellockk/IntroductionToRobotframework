@@ -1,18 +1,15 @@
 *** Settings ***
 | Resource | ${RESOURCES}/Common.robot |
 | Resource | ${RESOURCES}/Verification.robot |
+| Documentation | The SUT shall provide command line options. |
 | Test Setup | Setup Temporary Directory |
 | Test Teardown | Teardown Temporary Directory |
 
 *** Test Cases ***
-| SUT-REQ-01 |
+| SUT-REQ-001-01 |
 |    | [Documentation] | Command line help |
-|    | The SUT shall provide command line usage information when help is requested. |
+|    | The command line options shall provide help when requested. |
 
-| SUT-REQ-02 |
+| SUT-REQ-001-02 |
 |    | [Documentation] | Version number |
-|    | The SUT shall provide its version number when requested. |
-
-| SUT-REQ-03 |
-|    | [Documentation] | Output |
-|    | The SUT shall write output to a specified file. |
+|    | The command line options shall provide the system version number when requested. |
