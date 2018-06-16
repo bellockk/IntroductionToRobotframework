@@ -7,9 +7,17 @@
 
 *** Test Cases ***
 | SUT-REQ-001-01 |
-|    | [Documentation] | Command line help |
-|    | The command line options shall provide help when requested. |
+|    | [Documentation] | Command line help  "-h" |
+|    | The command line options shall provide help when the "-h" flag is provided. |
 
 | SUT-REQ-001-02 |
-|    | [Documentation] | Version number |
-|    | The command line options shall provide the system version number when requested. |
+|    | [Documentation] | Command line help "--help" |
+|    | The command line options shall provide help when the "--help" flag is provided. |
+
+| SUT-REQ-001-03 |
+|    | [Documentation] | Version number "-V" |
+|    | The command line options shall provide the system version number when the "-V" flag is provided. |
+
+| SUT-REQ-001-04 |
+|    | [Documentation] | Version number "--version" |
+|    | The command line options shall provide the system version number when the "--version" flag is provided. |
