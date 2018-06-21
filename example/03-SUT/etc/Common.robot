@@ -6,12 +6,18 @@
 | ${SUT} | ${CURDIR}${/}..${/}..${/}sut.py |
 
 *** Keywords ***
+| The system under test is executed with the "${FLAG}" flag |
+|    | ${result} = | Run Process | ${PYTHON} | ${SUT} | ${FLAG} | stderr=STDOUT | stdout=${TEMPDIR}/stdout.txt |
+|    | Log Many | ${result.rc} | ${result.stdout} |
+|    | Should be Equal as Integers | 0 | ${result.rc} |
+|    | Set Test Variable | ${output} | ${result.stdout}
+
 | Run SUT with "${ARG}" | 
 |    | [Documentation] | Executes the system under test with the specified argument |
 |    | ${result} = | Run Process | ${PYTHON} | ${SUT} | ${ARG} | stderr=STDOUT | stdout=${TEMPDIR}/stdout.txt |
 |    | Log Many | ${result.rc} | ${result.stdout} |
-|    | ${OUTPUT} = | Set Test Variable | ${result.stdout} |
-|    | ${RC} = | Set Test Variable | ${result.rc} |
+|    | Set Test Variable | ${OUTPUT} | ${result.stdout} |
+|    | Set Test Variable | ${RC} | ${result.rc} |
 |    | Should be Equal as Integers | 0 | ${RC} |
 
 | Setup Temporary Directory |

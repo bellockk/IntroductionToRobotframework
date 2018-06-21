@@ -21,4 +21,4 @@
 |    | [Documentation] | Output |
 |    | Given the SUT. |
 |    | When a user executes the SUT with a specified output file. |
-|    | Then SUT will write output to the specified file. |
+|    | Then the SUT will write output to the specified file. |

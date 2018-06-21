@@ -4,7 +4,7 @@ temp_directory=$(mktemp -d "${TMPDIR:-/tmp/}$(basename $0).XXXXXXXXXXXX")
 echo "Temp Directory: ${temp_directory}"
 virtualenv "${temp_directory}/local"
 args="$@"
-"${temp_directory}/local/bin/pip" install robotframework
+"${temp_directory}/local/bin/pip" --no-cache-dir install robotframework matplotlib numpy
 bash -c "printf "\""\
 export PATH="${temp_directory}/local/bin":/bin:/usr/bin:/usr/local/bin\\n\
 "${temp_directory}/local/bin/robot" $args --noncritical NON_CRITICAL --noncritical KNOWN_FAILURE -P "${DIR}/../lib" -V "${DIR}/../var/Variables.py" "${DIR}/../src/SUT"\\n\

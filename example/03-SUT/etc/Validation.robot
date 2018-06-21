@@ -1,28 +1,30 @@
 *** Settings ***
 | Library | Process |
 | Library | OperatingSystem |
+| Library | Validation |
 
 *** Variables ***
 | ${SUT} | ${CURDIR}${/}..${/}..${/}sut.py |
 
 *** Keywords ***
 | Given the SUT. |
-|    | Fail | Not Implemented |
+|    | File should exist | ${SUT} |
 
-| When a user requests help. |
-|    | Fail | Not Implemented |
+| A user requests help. |
+|    | When the system under test is executed with the "-h" flag |
 
-| Then usage information will be provided. |
-|    | Fail | Not Implemented |
+| Usage information will be provided. |
+|    | Should Contain | ${output} | usage |
 
-| When a user requests the version number of the SUT. |
-|    | Fail | Not Implemented |
+| A user requests the version number of the SUT. |
+|    | When the system under test is executed with the "-V" flag |
 
-| Then the SUT's version number will be provided. |
-|    | Fail | Not Implemented |
+| The SUT's version number will be provided. |
+|    | Should Contain | ${output} | sut v1.0.0 |
 
-| When a user executes the SUT with a specified output file. |
-|    | Fail | Not Implemented |
+| A user executes the SUT with a specified output file. |
+|    | Run SUT with "-o test.csv" |
 
-| Then SUT will write output to the specified file. |
-|    | Fail | Not Implemented |
+| The SUT will write output to the specified file. |
+|    | File should exist | test.csv |
+|    | Plot CSV file "test.csv" to "${OUTPUT DIR}${/}media${/}output_plot.png" |

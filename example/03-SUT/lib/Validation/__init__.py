@@ -7,6 +7,8 @@ dropping in functions, raise an error to fail a keyword.
 """
 import os
 import logging
+import matplotlib
+matplotlib.use('Agg')
 
 _SCRIPT_PATH = os.path.realpath(os.path.dirname(__file__))
 _MODULE_NAME = os.path.basename(_SCRIPT_PATH)
