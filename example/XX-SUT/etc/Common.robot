@@ -3,7 +3,7 @@
 | Library | OperatingSystem |
 
 *** Variables ***
-| ${SUT} | ${CURDIR}${/}..${/}..${/}sut.py |
+| ${SUT} | ${CURDIR}${/}..${/}..${/}SUT${/}sut.py |
 
 *** Keywords ***
 | The system under test is executed with the "${FLAG}" flag |
