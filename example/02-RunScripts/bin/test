@@ -15,7 +15,7 @@ virtualenv "${temp_directory}/local"
 args="$@"
 bash -c "printf "\""\
 export PATH="${temp_directory}/local/bin":/bin:/usr/bin:/usr/local/bin\\n\
-"${temp_directory}/local/bin/robot" -d "${DIR}/../results" "${DIR}/../src/Hello.robot"\\n\
+"${temp_directory}/local/bin/robot" -v TEMPDIR:"${temp_directory}" -d "${DIR}/../results" "${DIR}/../src/Hello.robot"\\n\
 "\" > "${temp_directory}/test.sh"
 chmod +x "${temp_directory}/test.sh"
 env -i "${temp_directory}/test.sh"
