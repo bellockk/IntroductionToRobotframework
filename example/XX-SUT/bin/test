@@ -7,7 +7,7 @@ args="$@"
 "${temp_directory}/local/bin/pip" install robotframework matplotlib numpy
 bash -c "printf "\""\
 export PATH="${temp_directory}/local/bin":/bin:/usr/bin:/usr/local/bin\\n\
-"${temp_directory}/local/bin/robot" $args --noncritical NON_CRITICAL --noncritical KNOWN_FAILURE -P "${DIR}/../lib" -V "${DIR}/../var/Variables.py" "${DIR}/../src/SUT"\\n\
+"${temp_directory}/local/bin/robot" $args --noncritical NON_CRITICAL --noncritical KNOWN_FAILURE -P "${DIR}/../lib" -V "${DIR}/../var/Variables.py" -d "${DIR}/../dist" "${DIR}/../src/SUT"\\n\
 "\" > "${temp_directory}/test.sh"
 chmod +x "${temp_directory}/test.sh"
 env -i "${temp_directory}/test.sh"
