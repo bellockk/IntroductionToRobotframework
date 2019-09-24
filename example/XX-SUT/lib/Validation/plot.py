@@ -5,7 +5,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
-
+__all__ = ['plot']
 
 @keyword('Plot CSV file "${filename}" to "${output}"')
 def plot(filename, output):

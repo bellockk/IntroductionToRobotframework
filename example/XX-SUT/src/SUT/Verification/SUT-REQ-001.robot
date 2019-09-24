@@ -7,7 +7,7 @@
 
 *** Test Cases ***
 | SUT-REQ-001-01 |
-|    | [Documentation] | Command line help  "-h" |
+|    | [Documentation] | Command line help "-h" |
 |    | The command line options shall provide help when the "-h" flag is provided. |
 
 | SUT-REQ-001-02 |
