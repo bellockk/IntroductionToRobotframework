@@ -170,6 +170,7 @@
       % [images, this folder size=20pt
       %     [wallpapers]
       %     [logo.pdf, is file]]
+      [bin, this folder size=20pt]
       [etc, this folder size=20pt]
       [lib, this folder size=20pt]
       [src, this folder size=20pt]
@@ -179,6 +180,7 @@
   \end{forest}
 \end{adjustbox}
             \begin{description}
+                \item[\textbf{bin}] Run Scripts
                 \item[\textbf{etc}] Resource Files
                 \item[\textbf{lib}] Libraries
                 \item[\textbf{src}] Test Suites
@@ -380,10 +382,218 @@ Report:  report.html
 \end{frame}
 
 
+\subsection{Including Run Scripts}
+\begin{frame}\frametitle{Overview}
+    \vfill
+    \begin{center}\LARGE\bf
+        Run Robot Run!
+    \end{center}
+    \vfill
+    \begin{itemize}
+        \item Now that introductions are out of the way, lets create some run scripts to allow for push button execution of tests without having to remember required flags or options.
+    \end{itemize}
+    \vfill
+     \begin{beamercolorbox}[rounded=true, center, shadow=true,wd=\textwidth]{bgcolor}
+    \footnotesize Tests that are easy to edit and execute are more likely to be run.
+     \end{beamercolorbox}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Objectives}
+    \begin{itemize}
+        \item Add push button execution of tests
+            \begin{itemize}
+                \item The button should work for everyone regardless of user environment
+                \item As we add more features to our test suite the number of flags we will have to pass the robot to tell it where everything is is going to grow, but we want to keep our test execution as simple as possible
+                \item Retain important options like being able to specify test or suite execution
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Setup (Linux)}
+    \begin{itemize}
+        \item Create a test folder for this project called \texttt{02-RunScripts} by copying the \texttt{01-HelloRobot} folder.
+        \item Place the contents of Listing~\ref{lst:runlinux} into a file called \texttt{run} in a subdirectory named \texttt{bin}
+        \item Make sure the new file \texttt{run} is executable by executing the command in listing~\ref{lst:execute}
+        \item Place the contents of Listing~\ref{lst:runwindows} into a file called \texttt{run.bat} in a subdirectory named \texttt{bin}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,shrink=20]\frametitle{Setup (Linux)}
+\begin{tcblisting}{%
+        theorem={Listing}{listings}{\texttt{bin/run}}{lst:runlinux},
+     fonttitle=\scriptsize\bfseries,
+     listing engine=minted,
+     minted language=bash,
+     minted options={%
+         breaklines,
+         fontsize=\tiny,
+         numbersep=2mm,
+         baselinestretch=1,
+         linenos},
+     overlay={%
+       \begin{tcbclipinterior}
+           \fill[gray!25] (frame.south west) rectangle ([xshift=4mm]frame.north west);
+       \end{tcbclipinterior}},
+     breakable, enhanced, listing only}
+#!/bin/sh
+
+# Get directory containing this script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Create a temporary directory
+temp_directory=$(mktemp -d "${TMPDIR:-/tmp/}$(basename $0).XXXXXXXXXXXX")
+echo "Temp Directory: ${temp_directory}"
+
+# Create a python virtual environment
+virtualenv "${temp_directory}/local"
+"${temp_directory}/local/bin/pip" install robotframework
+
+# Run tests
+args="$@"
+bash -c "printf "\""\
+export PATH="${temp_directory}/local/bin":/bin:/usr/bin:/usr/local/bin\\n\
+"${temp_directory}/local/bin/robot" -v TEMPDIR:"${temp_directory}" -d "${DIR}/../results" "${DIR}/../src/Hello.robot"\\n\
+"\" > "${temp_directory}/test.sh"
+chmod +x "${temp_directory}/test.sh"
+env -i "${temp_directory}/test.sh"
+
+# Clean Up
+rm -fr "${temp_directory}"
+\end{tcblisting}
+
+\begin{tcblisting}{%
+     theorem={Listing}{listings}{Setting Script as Executable}{lst:execute},
+     fonttitle=\scriptsize\bfseries,
+     listing engine=minted,
+     minted language=shell-session,
+     minted options={%
+         breaklines,
+         fontsize=\tiny,
+         numbersep=2mm,
+         baselinestretch=1,
+         linenos},
+     overlay={%
+       \begin{tcbclipinterior}
+           \fill[gray!25] (frame.south west) rectangle ([xshift=4mm]frame.north west);
+       \end{tcbclipinterior}},
+     breakable, enhanced, listing only}
+>> chmod +x bin/test
+\end{tcblisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Setup (Windows)}
+\begin{tcblisting}{%
+        theorem={Listing}{listings}{\texttt{bin/test.bat}}{lst:runwindows},
+     fonttitle=\scriptsize\bfseries,
+     listing engine=minted,
+     minted language=batch,
+     minted options={%
+         breaklines,
+         fontsize=\tiny,
+         numbersep=2mm,
+         baselinestretch=1,
+         linenos},
+     overlay={%
+       \begin{tcbclipinterior}
+           \fill[gray!25] (frame.south west) rectangle ([xshift=4mm]frame.north west);
+       \end{tcbclipinterior}},
+     breakable, enhanced, listing only}
+@echo off
+Setlocal enabledelayedexpansion
+Set >set
+For /F "tokens=1* delims==" %%i in (set) do set %% %i =
+Del set
+FOR /F "tokens=* USEBACKQ" %%F IN (`python -c "import tempfile; print(tempfile.mkdtemp())"`) DO (
+SET temp_directory=%%F
+)
+echo "Temp Directory: %temp_directory%"
+virtualenv "%temp_directory%/local"
+"%temp_directory%/local/bin/pip" install robotframework
+"%temp_directory%/local/bin/robot" "%~dp0../src/Hello.robot"
+@RD /S /Q "%temp_directory%"
+\end{tcblisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Project Layout}
+    \begin{adjustbox}{width=.6\textwidth, center}
+    \begin{forest}
+    for tree={font=\sffamily, %grow'=0,
+    folder indent=.9em, folder icons,
+    edge=densely dotted}
+    [01-HelloRobot
+      [bin, this folder size=20pt
+          [test, is file],
+          [test.bat, is file]],
+      [src, this folder size=20pt
+          [Hello.robot, is file]]
+    ]
+  \end{forest}
+\end{adjustbox}
+\vfill
+            \begin{itemize}
+                \item We have added the new \texttt{bin} folder, and placed an execution script inside for both linux and windows
+            \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile, shrink=20]\frametitle{Execution}
+    From our project folder \texttt{02-RunScripts}, execute the command in Listing~\ref{lst:runscript}
+\begin{tcblisting}{%
+     theorem={Listing}{listings}{Run Script Execution}{lst:runscript},
+     fonttitle=\scriptsize\bfseries,
+     listing engine=minted,
+     minted language=shell-session,
+     minted options={%
+         breaklines,
+         fontsize=\tiny,
+         numbersep=2mm,
+         baselinestretch=1,
+         linenos},
+     overlay={%
+       \begin{tcbclipinterior}
+           \fill[gray!25] (frame.south west) rectangle ([xshift=4mm]frame.north west);
+       \end{tcbclipinterior}},
+     breakable, enhanced, listing only}
+>> bin/test
+Temp Directory: /tmp/test.BlumnLC4iULT
+Using base prefix '/usr'
+New python executable in /tmp/test.BlumnLC4iULT/local/bin/python3
+Also creating executable in /tmp/test.BlumnLC4iULT/local/bin/python
+Installing setuptools, pip, wheel...done.
+Collecting robotframework
+  Using cached robotframework-3.1.2-py2.py3-none-any.whl
+Installing collected packages: robotframework
+Successfully installed robotframework-3.1.2
+==============================================================================
+Hello
+[...]
+==============================================================================
+Output:  output.xml
+Log:     log.html
+Report:  report.html
+\end{tcblisting}
+Which is the same we saw in our previous example, except our execution command has no arguments 
+\end{frame}
+
+\begin{frame}\frametitle{Summary}
+    \begin{itemize}
+        \item This example will not seem to add much at this point, we still have not asked the robot to do anything more than\ldots nothing
+        \item Robotframework, while being asked to do nothing, now is executing tests\ldots
+            \begin{itemize}\footnotesize
+                \item With the same environment, regardless of user or platform
+                \item With a push button interface, even as we add libraries, variable files, and resources
+            \end{itemize}
+    \end{itemize}
+    \begin{center}
+    \includegraphics[height=.37\textheight]{robot}
+        
+    \emph{Come on, put me to work already!}
+    \end{center}
+\end{frame}
+
 \subsection{A Real System Under Test}
 
 \begin{frame}\frametitle{Overview}
-    Now that introductions are out of the way, lets create a real system under test (SUT), and see how we can leverage our new friend to run some tests on it
+    Lets create a real system under test (SUT), and see how we can leverage our new friend to run some tests on it
 \end{frame}
 
 \begin{frame}\frametitle{Objectives}
